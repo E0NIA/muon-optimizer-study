@@ -17,6 +17,13 @@ Gemma-4-12B and LFM2.5-8B-A1B (MoE) fine-tuned with **4-bit QLoRA** on OpenR1-Ma
 on the adapters. **Muon won both** (−5% / −4% best-val perplexity) with **negligible wall-clock
 overhead** — its edge transfers to LoRA even though the update is rank-capped.
 
+### [Part 3 — Muon internals (ablations)](part3-muon-internals/)
+How Muon *works*, on the small from-scratch models. Two clean results: **Muon is ~8× more
+LR-robust** than AdamW (its best-val moves ~0.08 across a 16× LR range vs AdamW's ~0.7), and the
+**Newton-Schulz orthogonalization — not just momentum — is what helps** (`ns=0` is clearly worst),
+with 2–3 steps capturing most of the gain. (A third, rank-preservation ablation didn't replicate and
+is reported honestly, not claimed.)
+
 ## How it's run
 
 - **Optimizers:** reference single-device **Muon** (Keller Jordan's quintic Newton-Schulz) +
